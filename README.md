@@ -1,8 +1,11 @@
 ## Authors
 
 **[Patrick Barchok](https://github.com/Barchok-Kiposmet)**
+
 **[Martha Nyagura](https://github.com/marthamwangi09)**
+
 **[Vincent Motanya](https://github.com/vinney-mo)**
+
 **[Pendo Karisa](https://github.com/pkarisa)**
 
 
@@ -14,22 +17,22 @@ This project is a web application for task manager, one is able to check the sta
 
 ## Setup/Installation Requirements
  
-*Fork repository and clone. After cloning the repository and run npm install.
-*Run Code . or Atom . depending on the editor’s choice.
+- Fork repository and clone. After cloning the repository and run npm install.
+- Run Code . or Atom . depending on the editor’s choice.
 
-##Known Bugs
-*The site is not responsive enough for some devices.
+## Known Bugs
+- The site is not responsive enough for some devices.
 
 ## Technologies Used
 
-*HTML
-*Javascript
-*Node
-*Express
-*MongoDB
+- HTML
+- Javascript
+- Node
+- Express
+- MongoDB
 
 License
-**MIT License: *Copyright (c) 2023
+MIT License: Copyright (c) 2023
 
 
 
