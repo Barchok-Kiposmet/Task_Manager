@@ -36,5 +36,14 @@ router.patch("/:id", async function (req, res) {
     res.status(400).json({ message: error.message });
   }
 });
+router.delete("/:id", async function (req, res) {
+  const id = req.params.id;
+  try {
+    const dataDelete = await tasksModels.findByIdAndDelete(id);
+    res.status(200).json(dataDelete);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
 
 module.exports = router;
