@@ -21,12 +21,11 @@ database.on('connected', ()=>{
     console.log("Database Connected");
 });
 
-// CRUD OPERATIONS
 
-app.get('/', function (req, res) {
-  res.send('Hello World')
-});
+app.use(express.json());
+
 app.use('/tasks',tasksRoutes)
+
 
 app.listen(PORT, () =>{
     console.log('Server is running');
