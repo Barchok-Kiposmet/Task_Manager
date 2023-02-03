@@ -3,6 +3,8 @@ const tasksModels = require("./../models/tasks");
 
 const router = express.Router();
 
+// create an entry
+
 router.post("/", async function (req, res) {
   const data = new tasksModels({
     title: req.body.title,
@@ -17,6 +19,8 @@ router.post("/", async function (req, res) {
   }
 });
 
+// fetch all entries
+
 router.get("/", async function (req, res) {
   try {
     const data = await tasksModels.find();
@@ -25,6 +29,8 @@ router.get("/", async function (req, res) {
     res.status(400).json({ message: error.message });
   }
 });
+
+// update an entry
 
 router.patch("/:id", async function (req, res) {
   const id = req.params.id;
@@ -37,6 +43,8 @@ router.patch("/:id", async function (req, res) {
   }
 });
 
+// delete an entry
+
 router.delete("/:id", async function (req, res) {
   const id = req.params.id;
   try {
@@ -47,6 +55,7 @@ router.delete("/:id", async function (req, res) {
   }
 });
 
+// Logical for when we want to get the specific task
 
 router.get('/:id', async function (req, res) {
   try {
