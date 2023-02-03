@@ -25,6 +25,7 @@ database.on('connected', ()=>{
 app.get('/', function (req, res) {
   res.send('Hello World')
 });
+app.use('/tasks',tasksRoutes)
 
 app.listen(PORT, () =>{
     console.log('Server is running');
