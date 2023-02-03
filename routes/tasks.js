@@ -26,4 +26,15 @@ router.get("/", async function (req, res) {
   }
 });
 
+router.patch("/:id", async function (req, res) {
+  const id = req.params.id;
+  const updateData =req.body;
+  try {
+    const dataUpdate = await tasksModels.findByIdAndUpdate(id, updateData, {new:true});
+    res.status(200).json(dataUpdate);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
 module.exports = router;
