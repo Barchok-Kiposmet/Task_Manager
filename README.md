@@ -17,11 +17,11 @@ This project is a web application for task manager, one is able to check the sta
 
 ## Setup/Installation Requirements
  
-- Fork repository and clone. After cloning the repository and run npm install.
-- Run Code . or Atom . depending on the editor’s choice.
+- Fork the repository and clone it. After cloning the repository, run npm install.
+- Use a code editor of your choice.
 
 ## Known Bugs
-- The site is not responsive enough for some devices.
+- There are no known bugs- Raise an issue if you experience any challenge.
 
 ## Technologies Used
 
