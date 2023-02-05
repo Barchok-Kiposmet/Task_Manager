@@ -62,7 +62,7 @@
               <td><%= task.dateAdded %></td>
               <td><%= task.status %></td>
               <td>
-                <button class="btn btn-success">Update</button>
+                <button class="btn btn-success" onclick="getTask('<%= task._id%>')">Update</button>
                 <button
                   class="btn btn-danger"
                   onclick="deleteTask('<%= task._id%>')"
@@ -113,6 +113,75 @@
                       <textarea
                         class="form-control"
                         id="description"
+                        name="description"
+                        required
+                      ></textarea>
+                    </div>
+                    <div class="mb-3">
+                      <button type="submit" class="btn btn-primary">
+                        Submit
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="modal fade"
+          id="editTaskModal"
+          tabindex="-1"
+          aria-labelledby="editModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content modal-md">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Task</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div>
+                  <form id="submitEditTask" onsubmit="saveEditTask()">
+                    <div class="mb-3">
+                      <label class="form-label">Title</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="editTitle"
+                        name="title"
+                        placeholder="Title"
+                        required
+                      />
+
+                      <input
+                      type="hidden"
+                      class="form-control"
+                      id="editTask"              
+                      required
+                    />
+                    </div>
+                    <div class="mb-3">
+                      <label class="form-label">Description</label>
+                      <textarea
+                        class="form-control"
+                        id="editDescription"
                         name="description"
                         required
                       ></textarea>
@@ -203,6 +272,31 @@
           deleteTask.send();
         }
       }
+
+      function getTask(id) {
+        
+        //  Get task from record
+          var getTask = new XMLHttpRequest();
+          getTask.open("GET", "/tasks/" + id, true);
+          getTask.onreadystatechange = function () {
+            if (
+              this.readyState === XMLHttpRequest.DONE &&
+              this.status === 200
+            ) {
+              // update modal with task details
+              var task =JSON.parse(this.responseText);
+              document.getElementById("editTitle").value =task.title;
+              document.getElementById("editDescription").value =task.description;
+              alert("Task deleted successfully!");
+              location.reload();
+            } else if (this.readyState === XMLHttpRequest.DONE) {
+              // show the error message
+              alert("Failed to delete task. Please try again later.");
+            }
+          };
+          deleteTask.send();
+        }
+      
     </script>
   </body>
 </html>
