@@ -16,7 +16,7 @@
 
         .header {
             padding: 20px 10px;
-            margin: 10px 0px;
+            margin: 10px 0;
             background-color: #eff3ff;
         }
     </style>
@@ -72,11 +72,11 @@
                             <form id="submitTask" onsubmit="saveTask()">
                                 <div class="mb-3">
                                     <label class="form-label">Title</label>
-                                    <input type="text" class="form-control" id="title" name="title" placeholder="Title">
+                                    <input type="text" class="form-control" id="title" name="title" placeholder="Title" required>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">Description</label>
-                                    <textarea class="form-control" id="description" name="description"></textarea>
+                                    <textarea class="form-control" id="description" name="description" required></textarea>
                                 </div>
                                 <div class="mb-3">
                                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -99,6 +99,16 @@
         // get the task title and description from the form
         var title = document.getElementById("title").value;
         var description = document.getElementById("description").value;
+
+        if (title===""){
+            alert("Please input the title")
+            return false;
+        }
+
+        if (description===""){
+            alert("Please input the description")
+            return false;
+        }
 
         // send an AJAX request to save the task
         var saveTask = new XMLHttpRequest();
