@@ -30,6 +30,7 @@ This project is a web application for task manager, one is able to check the sta
 - Node
 - Express
 - MongoDB
+- JQUERY
 
 License
 MIT License: Copyright (c) 2023

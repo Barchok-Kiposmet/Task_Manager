@@ -34,9 +34,11 @@ router.get("/", async function (req, res) {
 
 router.patch("/:id", async function (req, res) {
   const id = req.params.id;
-  const updateData =req.body;
+  const updateData = req.body;
   try {
-    const dataUpdate = await tasksModels.findByIdAndUpdate(id, updateData, {new:true});
+    const dataUpdate = await tasksModels.findByIdAndUpdate(id, updateData, {
+      new: true,
+    });
     res.status(200).json(dataUpdate);
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -57,13 +59,13 @@ router.delete("/:id", async function (req, res) {
 
 // Logical for when we want to get the specific task
 
-router.get('/:id', async function (req, res) {
+router.get("/:id", async function (req, res) {
   try {
     const task = await tasksModels.findById(req.params.id);
-    if (!task) return res.status(404).json({message: 'Task not found'});
+    if (!task) return res.status(404).json({ message: "Task not found" });
     res.status(200).json(task);
   } catch (error) {
-    res.status(400).json({message: error.message});
+    res.status(400).json({ message: error.message });
   }
 });
 

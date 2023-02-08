@@ -1,338 +1,353 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
+  <head>
+    <meta charset="UTF-8" />
     <title><%= title %></title>
     <link
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-            rel="stylesheet"
-            integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-            crossorigin="anonymous"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
     />
     <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
     ></script>
 
     <style>
-        body {
-            padding-top: 50px;
-        }
+      body {
+        padding-top: 50px;
+      }
 
-        .header {
-            padding: 20px 10px;
-            margin: 10px 0;
-            background-color: #eff3ff;
-        }
+      .header {
+        padding: 20px 10px;
+        margin: 10px 0;
+        background-color: #eff3ff;
+      }
     </style>
-</head>
-<body class="container">
-<main>
-    <div class="header">
+  </head>
+  <body class="container">
+    <main>
+      <div class="header">
         <h1>Task Manager</h1>
         <p>Welcome to My Task Manager</p>
         <button
-                type="button"
-                class="btn btn-danger"
-                data-bs-toggle="modal"
-                data-bs-target="#addTaskModal"
+          type="button"
+          class="btn btn-danger"
+          data-bs-toggle="modal"
+          data-bs-target="#addTaskModal"
         >
-            Add Task
+          Add Task
         </button>
-    </div>
-    <div>
+      </div>
+      <div>
         <table class="table table-bordered">
-            <thead>
+          <thead>
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">Title</th>
-                <th scope="col">Description</th>
-                <th scope="col">Date Added</th>
-                <th scope="col">Status</th>
-                <th scope="col">Action</th>
+              <th scope="col">#</th>
+              <th scope="col">Title</th>
+              <th scope="col">Description</th>
+              <th scope="col">Date Added</th>
+              <th scope="col">Status</th>
+              <th scope="col">Action</th>
             </tr>
-            </thead>
-            <tbody>
+          </thead>
+          <tbody>
             <% tasks.forEach((task, index)=> { %>
-                <tr>
-                    <td><%= index + 1 %></td>
-                    <td><%= task.title %></td>
-                    <td><%= task.description || 'N/A' %></td>
-                    <td><%= task.dateAdded %></td>
-                    <td><%= task.status %></td>
-                    <td>
-                        <button class="btn btn-success" onclick="getTask('<%= task._id %>')">Update</button>
-                        <button
-                                class="btn btn-danger"
-                                onclick="deleteTask('<%= task._id %>')"
-                        >
-                            Delete
-                        </button>
-                    </td>
-                </tr>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= task.title %></td>
+              <td><%= task.description || 'N/A' %></td>
+              <td><%= task.dateAdded %></td>
+              <td><%= task.status %></td>
+              <td>
+                <button
+                  class="btn btn-success"
+                  onclick="getTask('<%= task._id %>')"
+                >
+                  Update
+                </button>
+                <button
+                  class="btn btn-danger"
+                  onclick="deleteTask('<%= task._id %>')"
+                >
+                  Delete
+                </button>
+              </td>
+            </tr>
             <% }); %>
-            </tbody>
+          </tbody>
         </table>
-    </div>
-    <div>
+      </div>
+      <div>
         <div
-                class="modal fade"
-                id="addTaskModal"
-                tabindex="-1"
-                aria-labelledby="exampleModalLabel"
-                aria-hidden="true"
+          class="modal fade"
+          id="addTaskModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
         >
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content modal-md">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
-                        <button
-                                type="button"
-                                class="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                        ></button>
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content modal-md">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Task</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div>
+                  <form id="submitTask" onsubmit="saveTask()">
+                    <div class="mb-3">
+                      <label class="form-label">Title</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="title"
+                        name="title"
+                        placeholder="Title"
+                        required
+                      />
                     </div>
-                    <div class="modal-body">
-                        <div>
-                            <form id="submitTask" onsubmit="saveTask()">
-                                <div class="mb-3">
-                                    <label class="form-label">Title</label>
-                                    <input
-                                            type="text"
-                                            class="form-control"
-                                            id="title"
-                                            name="title"
-                                            placeholder="Title"
-                                            required
-                                    />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Description</label>
-                                    <textarea
-                                            class="form-control"
-                                            id="description"
-                                            name="description"
-                                            required
-                                    ></textarea>
-                                </div>
-                                <div class="mb-3">
-                                    <button type="submit" class="btn btn-primary">
-                                        Submit
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                    <div class="mb-3">
+                      <label class="form-label">Description</label>
+                      <textarea
+                        class="form-control"
+                        id="description"
+                        name="description"
+                        required
+                      ></textarea>
                     </div>
-                    <div class="modal-footer">
-                        <button
-                                type="button"
-                                class="btn btn-secondary"
-                                data-bs-dismiss="modal"
-                        >
-                            Close
-                        </button>
+                    <div class="mb-3">
+                      <button type="submit" class="btn btn-primary">
+                        Submit
+                      </button>
                     </div>
+                  </form>
                 </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
             </div>
+          </div>
         </div>
 
         <div
-                class="modal fade"
-                id="editTaskModal"
-                tabindex="-1"
-                aria-labelledby="editModalLabel"
-                aria-hidden="true"
+          class="modal fade"
+          id="editTaskModal"
+          tabindex="-1"
+          aria-labelledby="editModalLabel"
+          aria-hidden="true"
         >
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content modal-md">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editModalLabel">Edit Task</h5>
-                        <button
-                                type="button"
-                                class="btn-close"
-                                data-bs-dismiss="modal"
-                                aria-label="Close"
-                        ></button>
-                    </div>
-                    <div class="modal-body">
-                        <div>
-                            <form id="submitEditTask" onsubmit="saveEditTask()">
-                                <div class="mb-3">
-                                    <label class="form-label">Title</label>
-                                    <input
-                                            type="text"
-                                            class="form-control"
-                                            id="editTitle"
-                                            name="title"
-                                            placeholder="Title"
-                                            required
-                                    />
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content modal-md">
+              <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Task</h5>
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div class="modal-body">
+                <div>
+                  <form id="submitEditTask" onsubmit="saveEditTask()">
+                    <div class="mb-3">
+                      <label class="form-label">Title</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="editTitle"
+                        name="title"
+                        placeholder="Title"
+                        required
+                      />
 
-                                    <input
-                                            type="hidden"
-                                            class="form-control"
-                                            id="editTask"
-                                            required
-                                    />
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Description</label>
-                                    <textarea
-                                            class="form-control"
-                                            id="editDescription"
-                                            name="description"
-                                            required
-                                    ></textarea>
-                                </div>
-                                <div class="mb-3">
-                                  <select class="form-select" aria-label="Default select example" id="status" name="status">
-                                    <option selected>Select Status</option>
-                                    <option value="To Do">To Do</option>
-                                    <option value="In Progress">In Progress</option>
-                                    <option value="Completed">Completed</option>
-                                  </select>
-                                </div>
-                                <div class="mb-3">
-                                    <button type="submit" class="btn btn-primary">
-                                        Submit
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
+                      <input
+                        type="hidden"
+                        class="form-control"
+                        id="editTask"
+                        required
+                      />
                     </div>
-                    <div class="modal-footer">
-                        <button
-                                type="button"
-                                class="btn btn-secondary"
-                                data-bs-dismiss="modal"
-                        >
-                            Close
-                        </button>
+                    <div class="mb-3">
+                      <label class="form-label">Description</label>
+                      <textarea
+                        class="form-control"
+                        id="editDescription"
+                        name="description"
+                        required
+                      ></textarea>
                     </div>
+                    <div class="mb-3">
+                      <select
+                        class="form-select"
+                        aria-label="Default select example"
+                        id="status"
+                        name="status"
+                      >
+                        <option selected>Select Status</option>
+                        <option value="To Do">To Do</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Completed">Completed</option>
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <button type="submit" class="btn btn-primary">
+                        Submit
+                      </button>
+                    </div>
+                  </form>
                 </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Close
+                </button>
+              </div>
             </div>
+          </div>
         </div>
-    </div>
-</main>
-<footer></footer>
-<script src="https://code.jquery.com/jquery-3.6.3.min.js"
-        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-<script>
-    function saveTask() {
+      </div>
+    </main>
+    <footer></footer>
+    <script
+      src="https://code.jquery.com/jquery-3.6.3.min.js"
+      integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      function saveTask() {
         // get the task title and description from the form
         var title = document.getElementById("title").value;
         var description = document.getElementById("description").value;
 
         if (title === "") {
-            alert("Please input the title");
-            return false;
+          alert("Please input the title");
+          return false;
         }
 
         if (description === "") {
-            alert("Please input the description");
-            return false;
+          alert("Please input the description");
+          return false;
         }
 
         // send an AJAX request to save the task
         var saveTask = new XMLHttpRequest();
         saveTask.open("POST", "/tasks", true);
         saveTask.setRequestHeader(
-            "Content-Type",
-            "application/json;charset=UTF-8"
+          "Content-Type",
+          "application/json;charset=UTF-8"
         );
         saveTask.onreadystatechange = function () {
-            if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                // show the success message
-                alert("Task saved successfully!");
-            } else if (this.readyState === XMLHttpRequest.DONE) {
-                // show the error message
-                alert("Failed to save task. Please try again later.");
-            }
+          if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            // show the success message
+            alert("Task saved successfully!");
+          } else if (this.readyState === XMLHttpRequest.DONE) {
+            // show the error message
+            alert("Failed to save task. Please try again later.");
+          }
         };
         saveTask.send(
-            JSON.stringify({title: title, description: description})
+          JSON.stringify({ title: title, description: description })
         );
-    }
+      }
 
-    function deleteTask(id) {
+      function deleteTask(id) {
         if (id === "") {
-            alert("Error Processing request");
-            return false;
+          alert("Error Processing request");
+          return false;
         }
 
         //  Delete task from record
         if (confirm("Are you sure you want to delete this task?")) {
-            var deleteTask = new XMLHttpRequest();
-            deleteTask.open("DELETE", "/tasks/" + id, true);
-            deleteTask.onreadystatechange = function () {
-                if (
-                    this.readyState === XMLHttpRequest.DONE &&
-                    this.status === 200
-                ) {
-                    // show the success message
-                    alert("Task deleted successfully!");
-                    location.reload();
-                } else if (this.readyState === XMLHttpRequest.DONE) {
-                    // show the error message
-                    alert("Failed to delete task. Please try again later.");
-                }
-            };
-            deleteTask.send();
+          var deleteTask = new XMLHttpRequest();
+          deleteTask.open("DELETE", "/tasks/" + id, true);
+          deleteTask.onreadystatechange = function () {
+            if (
+              this.readyState === XMLHttpRequest.DONE &&
+              this.status === 200
+            ) {
+              // show the success message
+              alert("Task deleted successfully!");
+              location.reload();
+            } else if (this.readyState === XMLHttpRequest.DONE) {
+              // show the error message
+              alert("Failed to delete task. Please try again later.");
+            }
+          };
+          deleteTask.send();
         }
-    }
+      }
 
-    function getTask(id) {
-
+      function getTask(id) {
         //  Get task from record
         $.ajax({
-            type: "GET",
-            url: "/tasks/" + id,
-            success: function (task) {
-                $("#editTask").val(task._id);
-                $("#editTitle").val(task.title);
-                $("#editDescription").val(task.description);
-                $('#editTaskModal').modal('show');
-            },
-            error: function () {
-                alert("Failed to fetch task. Please try again later.");
-            }
+          type: "GET",
+          url: "/tasks/" + id,
+          success: function (task) {
+            $("#editTask").val(task._id);
+            $("#editTitle").val(task.title);
+            $("#editDescription").val(task.description);
+            $("#editTaskModal").modal("show");
+          },
+          error: function () {
+            alert("Failed to fetch task. Please try again later.");
+          },
         });
-    }
-    function saveEditTask() {
-      // get the task title and description from the form
-      var title = $('#editTitle').val();
-      var description = $('#editDescription').val();
-      var status =$('#status').val();
-      var id =$('#editTask').val();
-
-      if (title === "") {
-        alert("Please input the title");
-        return false;
       }
+      function saveEditTask() {
+        // get the task title and description from the form
+        var title = $("#editTitle").val();
+        var description = $("#editDescription").val();
+        var status = $("#status").val();
+        var id = $("#editTask").val();
 
-      if (description === "") {
-        alert("Please input the description");
-        return false;
-      }
-
-      // send an AJAX request to save the task
-      $.ajax({
-        type: "PATCH",
-        url: "/tasks/"+id,
-        data: JSON.stringify({title: title, description: description, status: status}),
-        contentType: "application/json;charset=UTF-8",
-        success: function (data){
-          alert("Task updated successfully!");
-          window.location.reload()
-        },
-        error: function (){
-          alert("Failed to update task. Please try again later.");
+        if (title === "") {
+          alert("Please input the title");
+          return false;
         }
-      });
-    }
 
-</script>
-</body>
+        if (description === "") {
+          alert("Please input the description");
+          return false;
+        }
+
+        // send an AJAX request to save the task
+        $.ajax({
+          type: "PATCH",
+          url: "/tasks/" + id,
+          data: JSON.stringify({
+            title: title,
+            description: description,
+            status: status,
+          }),
+          contentType: "application/json;charset=UTF-8",
+          success: function (data) {
+            alert("Task updated successfully!");
+            window.location.reload();
+          },
+          error: function () {
+            alert("Failed to update task. Please try again later.");
+          },
+        });
+      }
+    </script>
+  </body>
 </html>
